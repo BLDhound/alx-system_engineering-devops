@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Update the package list and install nginx
+apt-get update
+apt-get install -y nginx
+
+# Configure nginx to listen on port 80
+sed -i 's/listen\s*80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
+
+# Add a location block to the default server block for /redirect_me
+echo "location /redirect_me {" >> /etc/nginx/sites-available/default
+echo "    return 301 https://www.example.com/newpage;" >> /etc/nginx/sites-available/default
+echo "}" >> /etc/nginx/sites-available/default
+
+# Restart nginx
+service nginx restart
+
+echo "Nginx redirection setup complete"
