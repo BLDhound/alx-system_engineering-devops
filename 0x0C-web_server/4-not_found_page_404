@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Update the package list and install nginx
+apt-get update
+apt-get install -y nginx
+
+# Configure nginx to listen on port 80
+sed -i 's/listen\s*80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
+
+# Add a location block to the default server block for 404 errors
+echo "error_page 404 /404.html;" >> /etc/nginx/sites-available/default
+echo "location = /404.html {" >> /etc/nginx/sites-available/default
+echo "    internal;" >> /etc/nginx/sites-available/default
+echo "    return 404 'Ceci n'"'"'est pas une page';" >> /etc/nginx/sites-available/default
+echo "}" >> /etc/nginx/sites-available/default
+
+# Restart nginx
+service nginx restart
+
+echo "Nginx 404 page setup complete"
