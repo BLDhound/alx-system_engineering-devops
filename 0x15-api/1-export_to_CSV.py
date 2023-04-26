@@ -12,7 +12,7 @@ if __name__ == "__main__":
     except Exception:
         exit()
 
-    url = "https://jsonplaceholder.typicode.com/"
+    url = "https://jsonplaceholder.typicode.com/todos/1"
     url_user = url + "users?id=" + id
     url_todo = url + "todos?userId=" + id
 
